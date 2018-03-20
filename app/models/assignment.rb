@@ -113,7 +113,7 @@ class Assignment < ApplicationRecord
 
   %w(query try tests).each do |key|
     name = "run_#{key}!"
-    define_method(name) { |params| exercise.send name, params.merge(extra: extra) }
+    define_method(name) { |params| exercise.send name, params.merge(extra: params[:extra_metadata] || extra).except!(:extra_metadata) }
   end
 
   def as_platform_json
